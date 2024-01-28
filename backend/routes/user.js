@@ -2,9 +2,9 @@ const express = require('express');
 const zod = require('zod');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../config')
+const {JWT_SECRET} = require('../config')
 const {User,Account} = require('../db');
-const { authMiddleware } = require('../middleware');
+const {authMiddleware}  = require('../middleware');
 
 const signupBody = zod.object({
     username: zod.string().email(),
@@ -134,4 +134,4 @@ router.get('/bulk', async (req, res) => {
 
 
 
-module.exports = router;
+module.exports =  router ;

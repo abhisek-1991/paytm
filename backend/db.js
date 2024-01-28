@@ -1,7 +1,7 @@
-const moongose = require("mongoose");
+const mongoose = require("mongoose");
 
 mongoose.connect(process.env.DATABASE_URL);
-const userSchema = moongose.Schema({
+const userSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -43,8 +43,8 @@ const accountSchema = new mongoose.Schema({
 });
 
 
-const Account = moongose.model("Account", accountSchema);
-const User = moongose.model("User", userSchema);
+const Account = mongoose.model("Account", accountSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = {
     Account,
