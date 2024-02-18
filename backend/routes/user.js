@@ -99,9 +99,15 @@ router.put('/', authMiddleware, async (req, res) => {
       message: "Incorrect inputs"
     })
   }
-  const user = await User.updateOne(req.body,{
-    _id: req.userId
-  });
+    console.log('output of req.body', req.body);
+    console.log("user id", req.userId);
+    const { password } = req.body;
+    const user=await User.updateOne({_id:req.userId},{password});
+
+//   const user = await User.updateOne(req.body,{
+//     _id: req.userId
+//   });
+  
   res.json({
     message: "User updated successfully",
     user
