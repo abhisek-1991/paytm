@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { BottomWarning } from "../components/BottomWarning"
 import { Button } from "../components/Button"
 import { Heading } from "../components/Heading"
@@ -11,6 +12,22 @@ export const Signup = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   
+  const navigate = useNavigate();
+
+  const handleSignup = async () => {
+    try {
+      const response=await axios.post("http://localhost:3000/api/v1/user/signup", {
+        firstName,
+        lastName,
+        username,
+        password
+      })
+      localStorage.setItem("token", response.data.token)
+      navigate("/signin")
+    } catch (error) {
+      console.error("Signup failed:", error);
+    }
+  }
   
   return <div className="bg-slate-300 h-screen flex justify-center">
     <div className="flex flex-col justify-center">
@@ -27,11 +44,9 @@ export const Signup = () => {
         <InputBox onChange={
           (e) => setPassword(e.target.value) } placeholder = "123456" label={"Password"} />
         <div className="pt-4">
-          <Button onClick={() => { axios.post("http://localhost:3000/api/v1/user/signup", { username, firstName, lastName, password }) }} label={"Sign up"} />
-          {username}
-          {firstName}
-          {lastName}
-          {password}
+          <Button onClick={handleSignup}
+           label={"Sign up"} />
+          
         </div>
         <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
       </div>
